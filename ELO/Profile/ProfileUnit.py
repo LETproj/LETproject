@@ -138,6 +138,7 @@ class UiFullProfile(IfUiProfile):
     __viewable = [
                     'email',
                     'campus',
+
                     'matric'
                     ]
 

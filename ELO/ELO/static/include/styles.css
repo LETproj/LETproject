@@ -1,4 +1,7 @@
-/**Arquivo folha de estilos de css*/
+/**Arquivo folha de estilos de css**/
+
+/***HEAD***/
+/*Logo ELO no header*/
 .banner
 {
  	text-shadow: -1px 0 gray, 0 1px gray, 1px 0 gray, 0 -1px gray;
@@ -9,11 +12,7 @@
 	top: 0px;
 	padding-left:20px;
 }
-.error
-{
-	color: #dd1150;
-}
-
+/*Texto dos links no header*/
 .field
 {
 	text-align: right;
@@ -23,17 +22,17 @@
 	padding-right:20px;
 	padding-top:5px;
 }
-
+/*Links do header(Login,home,profile)*/
 a.field
 {	
 	text-decoration:none;
 }
-
+/*Cor dos links quando o mouse se posiciona sobre eles*/
 .field:hover
 {
 	color: #67B6FF;
 }
-
+/*Texto do head*/
 .mainMenu
 {
 	position: fixed;
@@ -41,7 +40,7 @@ a.field
 	right:10px;
 	width:100%;
 }
-
+/*Barra do head*/
 .menuTab
 {	
 	text-align:left;
@@ -53,16 +52,22 @@ a.field
 	
 }
 
+/***CONTENT***/
+/*Cor da mensagem de erro*/
+.error
+{
+	color: #dd1150;
+}
+/*Texto dos conteúdos da página(infos)*/
 .content
 {
-	text-align: left;
+	text-align: center;
 	color: #331156;
 	margin-top: 1cm;
 	height:100%;
 	padding:10px;
 	padding-bottom:20px;	
 }
-
 body
 {
 	background:#E3E3E3;
@@ -70,11 +75,19 @@ body
 	padding:0;	
 	padding-bottom:30px;
 }
-
-.dados{
-	text-align: right;
-	margin-top: 0.2cm;
+/*Link para primeiro acesso*/
+.firstAcess{
+	color:gray;
 }
+/*Forms da page de login*/
+.ffield
+{
+	margin-top: 0.2cm;
+	margin-bottom:10px;
+}
+
+/***FOOT***/
+/*Barra de footer*/
 .foot{	
 	color:white;
 	padding-top:10px;
@@ -84,13 +97,8 @@ body
    	width:100%;
    	height:50px;   
    	background:#000;
-	/*margin-left:auto;
-	margin-right:auto;
-	left:0px;
-	right:0px;
-	bottom:-10px;*/
 }
-
+/*Textos de formatação diferenciada do footer*/
 .footext{
 	color:white;
 	position:absolute;
@@ -100,22 +108,3 @@ body
 	text-decoration:none;
 	font-size:15px;
 }
-
-.firstAcess{
-	color:gray;
-}
-
-.ffield
-{
-	margin-top: 0.2cm;
-	margin-bottom:10px;
-}
-
-.manipular ul{
-	margin-top:50px;
-}
-
-.manipular li{
-	margin-top:10px;
-}
-
