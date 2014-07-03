@@ -66,7 +66,9 @@ a.field
 	margin-top: 1cm;
 	height:100%;
 	padding:10px;
-	padding-bottom:20px;	
+	padding-bottom:20px;
+	overflow:auto;
+  	padding-bottom:150px; /* this needs to be bigger than footer height*/	
 }
 body
 {
@@ -74,6 +76,7 @@ body
 	margin:0;
 	padding:0;	
 	padding-bottom:30px;
+	min-height:100%;
 }
 /*Link para primeiro acesso*/
 .firstAcess{
@@ -89,22 +92,16 @@ body
 /***FOOT***/
 /*Barra de footer*/
 .foot{	
-	color:white;
-	padding-top:10px;
+	right:0;
+	left:0;
+	clear:both;
 	padding-bottom:10px;
 	text-align:center;
-	position:absolute;
+	position:relative;
    	width:100%;
-   	height:50px;   
-   	background:#000;
-}
-/*Textos de formatação diferenciada do footer*/
-.footext{
-	color:white;
-	position:absolute;
-	width:100%;
-	text-align:center;
-	padding-top:30px;
-	text-decoration:none;
-	font-size:15px;
+   	height:50px;
+	margin-top: -50px; /* negative value of footer height */   
+	margin:auto;
+	position:fixed;
+	bottom:0;
 }

@@ -16,7 +16,7 @@
 			<label for="id_username">
 				{{ DICT.USERNAME }}
 			</label>
-			{{ form.username }}
+			{{ form.username }}	
 		</div>
 
 		<div class="ffield">
@@ -28,7 +28,7 @@
 		
 		<div class="ffield">
 			{% csrf_token %}
-			<input type="submit" value="Login" name="login_form" />
+			<button class="btn btn-large"><input type="submit" value="Login" name="login_form" /></button>
 		</div>
 	</form>
 <div class="firstAcess">
