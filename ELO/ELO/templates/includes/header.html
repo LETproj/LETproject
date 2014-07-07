@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <nav class="navbar navbar-default" role="navigation">
   <div class="container-fluid">
     <!-- Brand and toggle get grouped for better mobile display -->
@@ -24,3 +25,39 @@
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
 </nav>
+=======
+<div class="mainMenu">
+	
+	{% if user %}
+	<a href="/logout">
+		<div class="field">
+			Logout
+		</div>
+	</a>
+
+	<a href="/profile">
+		<div class="field">
+			Acessado como: {{ user.name }}
+		</div>
+	</a>
+
+	<a href="/">
+		<div class="field">
+		Home
+		</div>
+	</a>
+
+	{% else %}
+	<a href="/">
+		<div class="field">
+		Login
+		</div>
+	</a>
+	{% endif %}
+
+	<div class="banner">
+		ELO
+	</div>
+
+</div>
+>>>>>>> 992b7fef8d4fea0745d3c41016b88d960087b659
