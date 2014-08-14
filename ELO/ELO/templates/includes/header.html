@@ -4,33 +4,34 @@
 	{% if user %}
 	<a href="/logout">
 		<div class="field">
-			Logout
+			{{ DICT.LOGOUT }}
 		</div>
 	</a>
 
 	<a href="/profile">
 		<div class="field">
-			Acessado como: {{ user.name }}
+			{{ user.name }}
 		</div>
 	</a>
 
 	<a href="/">
 		<div class="field">
-		Home
+		{{ DICT.HOME }}
 		</div>
 	</a>
 
 	{% else %}
 	<a href="/">
 		<div class="field">
-		Login
+		{{ DICT.LOGIN }}
 		</div>
 	</a>
 	{% endif %}
 
-	<div class="banner">
-		ELO
-	</div>
+	<a href="/">
+		<div class="banner">
+			{{ DICT.ELO }}
+		</div>
+	</a>
 
 </div>
-

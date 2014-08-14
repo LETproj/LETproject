@@ -8,25 +8,26 @@
 #	blocos fundamentais para o funcionamento do sistema como um todo.
 
 from abc import *
-from importlib import import_module
 
 from Login.LoginUnit import *
 from Profile.ProfileUnit import *
 from Adm.AdmUnit import *
 from Course.CourseUnit import *
-from ELO.lang.index import DICT
+
+import ELO.locale.index as lang
 
 from models import Adm, Professor, Student
 
 from django.core.exceptions import PermissionDenied
 from django.http import Http404
+from django.views.decorators.vary import vary_on_cookie
 
 ## Insere os objetos user e DICT em todas as renderizações de template.
 def globalContext(request):
 	_sess = request.session
 	return {
 			'user': _sess['user'] if ('user' in _sess.keys()) else False,
-			'DICT': DICT,
+			'DICT': lang.DICT,
 		}
 
 ## Classe factory.
@@ -40,6 +41,7 @@ class Factory:
 	## Classe que redireciona para a devida home.
 	#	Caso o usuário já esteja devidamente logado, redireciona para o
 	#	profile, caso contrário, vai para a página de login.
+	@vary_on_cookie
 	def runHome(self, request, entity):
 		if 'user' in request.session.keys():
 			if request.session['user']['type'] == "Adm":
@@ -52,6 +54,7 @@ class Factory:
 	## Classe que executa o módulo de login.
 	# 	Define as camadas de persistência, negócio de login e
 	#	apresentação e verifica o tipo de usuário.
+	@vary_on_cookie
 	def runLogin(self, request, entity):
 		if not isinstance(self.__ui, IfUiLogin):
 			self.__pers = PersLogin()
@@ -86,8 +89,9 @@ class Factory:
 	#						edição. Caso a chamada seja assíncrona, retorna a
 	#						form de edição do campo específico.
 	#					"Home": Acessa o Perfil resumido, a home do site em si.
+	@vary_on_cookie
 	def runProfile(self, request, acctype, field=None):
-		if 'user' in request.session.keys():
+		if 'user' in request.session.keys(): # is user logged?
 			user_type = request.session['user']['type']
 			if user_type == 'Professor' or user_type == 'Student':
 				if not isinstance(self.__ui, IfUiProfile):
@@ -98,21 +102,22 @@ class Factory:
 				elif acctype == "Home":
 					self.__ui = UiHomeProfile(self.__bus)
 				else:
-					raise Http404(DICT["EXCEPTION_404_ERR"])
+					raise Http404(lang.DICT["EXCEPTION_404_ERR"])
 			
 				if field and acctype == "Full":
 					return self.__ui.run(request, field)
 				else:
 					return self.__ui.run(request)
 			else:
-				raise Http404(DICT["EXCEPTION_404_ERR"])
+				raise Http404(lang.DICT["EXCEPTION_404_ERR"])
 		else:
-			raise PermissionDenied(DICT["EXCEPTION_403_STD"])
+			raise PermissionDenied(lang.DICT["EXCEPTION_403_STD"])
 		
 
 	## Classe que executa o módulo de Administração.
 	# 	Define as camadas de persinstência, negócio e apresentação de
 	#	administração.
+	@vary_on_cookie
 	def runAdm(self, request):
 		if 'user' in request.session.keys():
 			if request.session['user']['type'] == 'Adm':
@@ -122,11 +127,12 @@ class Factory:
 					self.__ui = UiAdm(self.__bus) 
 				return self.__ui.run(request)
 		
-		raise PermissionDenied(DICT["EXCEPTION_403_STD"])
+		raise PermissionDenied(lang.DICT["EXCEPTION_403_STD"])
 
 	## Classe que executa o módulo de Curso.
-	# 	Define as camdas de persistência, negócio e apresentação de
+	# 	Define as camadas de persistência, negócio e apresentação de
 	#	curso.
+	@vary_on_cookie
 	def runCourse(self, request):
 		if 'user' in request.session.keys():
 			if not self.__ui is IfUiCourse:

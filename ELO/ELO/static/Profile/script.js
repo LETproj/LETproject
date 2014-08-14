@@ -5,13 +5,17 @@ $(document).ready(function(){
 		hide: "slideUp",
 		modal: true,
 		resizable: false,
-		show: "slideDown",
 		});
 
-	$("div[class^='edit_']").click(function(){
-		field = $(this).attr("class").slice(5);
+	$("button[id^='edit_']").click(function(){
+		field = $(this).attr("id").slice(5);
+		fname = $(this).attr("title")
+
+		// Gets the title of the dialog from the title of button.
+		$(".dialog").dialog("option", "title", fname);
+
 		$(".dialog").load("/assync/editfield/"+field);
-		//$(".dialog").dialog("option", "position", {of: this})
 		$(".dialog").dialog("open")
 	});
+
 });
