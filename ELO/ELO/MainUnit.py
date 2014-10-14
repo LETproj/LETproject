@@ -21,6 +21,7 @@ from models import Adm, Professor, Student
 from django.core.exceptions import PermissionDenied
 from django.http import Http404
 from django.views.decorators.vary import vary_on_cookie
+from django.utils import translation
 
 ## Insere os objetos user e DICT em todas as renderizações de template.
 def globalContext(request):
@@ -78,6 +79,7 @@ class Factory:
 	def runLogout(self, request):
 		if 'user' in request.session.keys():
 			del request.session['user']
+			del request.session[translation.LANGUAGE_SESSION_KEY]
 		return self.runLogin(request, "Student")
 
 	## Classe que executa a página inicial do módulo de Perfil.
@@ -122,14 +124,15 @@ class Factory:
 		# Checa se usuario ja esta logado
 		if 'user' in request.session.keys():
 			if request.session['user']['type'] == 'Adm':
-				if ((action != None) and (model != None)):
-					return self.__ui.run(request, action, model)
-				elif not isinstance(self.__ui, IfUiAdm):
+				if not isinstance(self.__ui, IfUiAdm):
 					self.__pers = PersAdm()
 					self.__bus = BusAdm(self.__pers)
 					self.__ui = UiAdm(self.__bus) 
+				
+				if action != None and model != None:
+					return self.__ui.run(request, action)
+				
 				return self.__ui.run(request)
-		
 		raise PermissionDenied(lang.DICT["EXCEPTION_403_STD"])
 
 	## Classe que executa o módulo de Curso.

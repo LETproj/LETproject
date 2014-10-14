@@ -15,7 +15,7 @@
 # editar alguns campos, como "interesses" ou "biografia".
 # É nesta página que o usuário poderá alterar sua senha.
 
-from abc import*
+from abc import *
 
 import ELO.locale.index as lang
 
@@ -170,7 +170,6 @@ class UiHomeProfile(IfUiProfile):
         if not 'matric' in user:
             request.session['user'] = self.bus.refreshUser(request)
             user = request.session['user']
-        translation.activate(request.session['user']['language'])
         return render(request, "Profile/home.html", {'user' : user})
 
 ## Camada de apresentação para a página de perfil completa.
@@ -288,8 +287,10 @@ class UiFullProfile(IfUiProfile):
         else: # request.method == "GET"
             if not field: # normal call
                 request.session['user'] = self.bus.refreshUser(request)
-                data = self.__makeData(get_user())        
-                translation.activate(request.session['user']['language'])
+                data = self.__makeData(get_user())
+                l = request.session['user']['language']
+                translation.activate(l)
+                request.session[translation.LANGUAGE_SESSION_KEY] = l
                 return render(request, "Profile/full.html", {'data' : data})
             else: # ajax call
                 err = False

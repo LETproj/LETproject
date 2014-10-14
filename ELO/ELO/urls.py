@@ -1,8 +1,22 @@
 #coding: utf-8
 
 ## @file urls.py
-# 	Arquivo responsável pelo redirecionamento e navegação
-#	entre as páginas do site.
+#	Arquivo responsável pelo processo de reconhecimento da URL requisitada
+#	e correspondente chamada da função da Factory (ver MainUnit.py).
+#
+#	Cada pattern dentro do urlpatterns deve ter o formato:
+#
+#		url(r'REGEX', VIEW),
+#
+#	onde REGEX é a expressão regular que será utilizada para identificar
+#	a URL, e VIEW o método correspondente que será chamado para processar
+#	a requisição.
+#
+#	É importante ressaltar que o método view deverá retornar obrigatoriamente
+#	um objeto do tipo HttpResponse.
+#
+#	Dentro do projeto, todas as views são chamadas de dentro da Factory.
+#	Para mais informações, leia a documentação do MainUnit.py.
 
 from django.conf.urls.static import static
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
@@ -33,7 +47,9 @@ urlpatterns = patterns('',
 	## URL da pagina de administracao.
 	url(r'^adm/?$', factory.runAdm),
 	url(r'^assync/adm-edit/(?P<action>\w{3,9})/(?P<model>\w{3,9})/?$', 
-	factory.runAdm),
+		factory.runAdm),
+	url(r'^assync/adm-info/?$', factory.runAdm),
+	url(r'^assync/edit-field/(?P<field>\w{3,9})/?$', factory.runAdm),
 ) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 urlpatterns += staticfiles_urlpatterns()
